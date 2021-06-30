@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { robots as defaultRobots } from './robots';
+import SearchBox from './components/SearchBox';
+import CardList from './components/CardList';
 
-function App() {
+// styles
+import 'tachyons';
+
+export default function App() {
+  const [robots, setRobots] = React.useState(defaultRobots);
+  const [searchField, setSearchField] = React.useState('');
+
+  const onSearchChange = event => {
+    setSearchField(event.target.value);
+  };
+
+  const filteredRobots = robots.filter(robot =>
+    robot.name.toLowerCase().includes(searchField.toLowerCase())
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="tc">
+      <h1>RoboFriends</h1>
+      <SearchBox searchChange={onSearchChange} />
+      <CardList robots={filteredRobots} />
     </div>
   );
 }
-
-export default App;
