@@ -4,6 +4,7 @@ import SearchBox from './components/SearchBox';
 import CardList from './components/CardList';
 
 // styles
+import './App.css'
 import 'tachyons';
 
 export default function App() {
@@ -20,7 +21,7 @@ export default function App() {
 
   return (
     <div className="tc">
-      <h1>RoboFriends</h1>
+      <h1 className="f1">RoboFriends</h1>
       <SearchBox searchChange={onSearchChange} />
       <CardList robots={filteredRobots} />
     </div>
