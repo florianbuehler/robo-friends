@@ -1,5 +1,4 @@
-import React from 'react';
-import { robots as defaultRobots } from './robots';
+import React, { useState, useEffect } from 'react';
 import SearchBox from './components/SearchBox';
 import CardList from './components/CardList';
 
@@ -8,9 +7,20 @@ import './App.css'
 import 'tachyons';
 
 export default function App() {
-  const [robots, setRobots] = React.useState(defaultRobots);
-  const [searchField, setSearchField] = React.useState('');
-
+  const [robots, setRobots] = useState([]);
+  const [searchField, setSearchField] = useState('');
+  
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch('https://jsonplaceholder.typicode.com/users')
+      const users = await res.json()
+      
+      setRobots(users)
+    }
+    
+    fetchData()
+  }, [])
+  
   const onSearchChange = event => {
     setSearchField(event.target.value);
   };
@@ -19,11 +29,15 @@ export default function App() {
     robot.name.toLowerCase().includes(searchField.toLowerCase())
   );
 
-  return (
-    <div className="tc">
-      <h1 className="f1">RoboFriends</h1>
-      <SearchBox searchChange={onSearchChange} />
-      <CardList robots={filteredRobots} />
-    </div>
-  );
+  if (robots.length === 0) {
+    return <h1>Loading...</h1>
+  } else {
+    return (
+      <div className="tc">
+        <h1 className="f1">RoboFriends</h1>
+        <SearchBox searchChange={onSearchChange} />
+        <CardList robots={filteredRobots} />
+      </div>
+    );
+  }
 }
