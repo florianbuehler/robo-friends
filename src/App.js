@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SearchBox from './components/SearchBox';
 import CardList from './components/CardList';
+import Scroll from './components/Scroll'
 
 // styles
 import './App.css'
@@ -36,7 +37,9 @@ export default function App() {
       <div className="tc">
         <h1 className="f1">RoboFriends</h1>
         <SearchBox searchChange={onSearchChange} />
-        <CardList robots={filteredRobots} />
+        <Scroll>
+          <CardList robots={filteredRobots} />
+        </Scroll>
       </div>
     );
   }
