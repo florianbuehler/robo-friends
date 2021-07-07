@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import ErrorBoundary from './components/ErrorBoundary';
 import SearchBox from './components/SearchBox';
 import CardList from './components/CardList';
 import Scroll from './components/Scroll';
+import { setSearchField } from './actions';
 
 // styles
 import './App.css'
 import 'tachyons';
 
-export default function App() {
+const mapStateToProps = (state) => ({
+  searchField: state.searchField
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+})
+
+const App = (props) => {
   const [robots, setRobots] = useState([]);
-  const [searchField, setSearchField] = useState('');
+  const { searchField, onSearchChange } = props
   
   useEffect(() => {
     async function fetchData() {
@@ -22,10 +32,6 @@ export default function App() {
     
     fetchData()
   }, [])
-  
-  const onSearchChange = event => {
-    setSearchField(event.target.value);
-  };
 
   const filteredRobots = robots.filter(robot =>
     robot.name.toLowerCase().includes(searchField.toLowerCase())
@@ -47,3 +53,5 @@ export default function App() {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
