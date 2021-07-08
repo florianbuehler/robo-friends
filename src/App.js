@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ErrorBoundary from './components/ErrorBoundary';
 import SearchBox from './components/SearchBox';
 import CardList from './components/CardList';
-import Scroll from './components/Scroll';
 import { setSearchField } from './actions';
 
 // styles
@@ -11,7 +10,7 @@ import './App.css'
 import 'tachyons';
 
 const mapStateToProps = (state) => ({
-  searchField: state.searchField
+  searchField: state.searchRobots.searchField
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -44,11 +43,9 @@ const App = (props) => {
       <div className="tc">
         <h1 className="f1">RoboFriends</h1>
         <SearchBox searchChange={onSearchChange} />
-        <Scroll>
-          <ErrorBoundary>
-            <CardList robots={filteredRobots} />
-          </ErrorBoundary>
-        </Scroll>
+        <ErrorBoundary>
+          <CardList robots={filteredRobots} />
+        </ErrorBoundary>
       </div>
     );
   }
