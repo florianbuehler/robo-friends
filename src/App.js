@@ -6,38 +6,36 @@ import CardList from './components/CardList';
 import { setSearchField } from './actions';
 
 // styles
-import './App.css'
+import './App.css';
 import 'tachyons';
 
 const mapStateToProps = (state) => ({
   searchField: state.searchRobots.searchField
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSearchChange: (event) => dispatch(setSearchField(event.target.value))
-})
+});
 
 const App = (props) => {
   const [robots, setRobots] = useState([]);
-  const { searchField, onSearchChange } = props
-  
+  const { searchField, onSearchChange } = props;
+
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch('https://jsonplaceholder.typicode.com/users')
-      const users = await res.json()
-      
-      setRobots(users)
-    }
-    
-    fetchData()
-  }, [])
+      const res = await fetch('https://jsonplaceholder.typicode.com/users');
+      const users = await res.json();
 
-  const filteredRobots = robots.filter(robot =>
-    robot.name.toLowerCase().includes(searchField.toLowerCase())
-  );
+      setRobots(users);
+    }
+
+    fetchData();
+  }, []);
+
+  const filteredRobots = robots.filter((robot) => robot.name.toLowerCase().includes(searchField.toLowerCase()));
 
   if (!robots.length) {
-    return <h1>Loading...</h1>
+    return <h1>Loading...</h1>;
   } else {
     return (
       <div className="tc">
@@ -49,6 +47,6 @@ const App = (props) => {
       </div>
     );
   }
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App);

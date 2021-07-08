@@ -7,12 +7,12 @@ import thunkMiddleware from 'redux-thunk';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {searchRobots, requestRobots} from './reducers';
+import { searchRobots, requestRobots } from './reducers';
 
-const logger = createLogger()
+const logger = createLogger();
 
-const rootReducer = combineReducers({searchRobots, requestRobots})
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger))
+const rootReducer = combineReducers({ searchRobots, requestRobots });
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(
   <React.StrictMode>
