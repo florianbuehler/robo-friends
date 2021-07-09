@@ -10,7 +10,7 @@ export const setSearchField = (text) => ({
   payload: text
 });
 
-export const requestRobots = async (dispatch) => {
+export const requestRobots = () => async (dispatch) => {
   dispatch({ type: REQUEST_ROBOTS_PENDING });
 
   try {
